@@ -13,7 +13,8 @@ enum class CardType {
     HELLO_WORLD,  ///< Simple hello world card
     FLAPPY_HOG,   ///< Flappy Hog game card
     QUESTION,     ///< Question trivia card
-    PADDLE        ///< Paddle game card
+    PADDLE,       ///< Paddle game card
+    NAVAGOTCHI    ///< Navagotchi virtual pet card
     // New card types can be added here
 };
 
@@ -85,6 +86,7 @@ inline String cardTypeToString(CardType type) {
         case CardType::FLAPPY_HOG: return "FLAPPY_HOG";
         case CardType::QUESTION: return "QUESTION";
         case CardType::PADDLE: return "PADDLE";
+        case CardType::NAVAGOTCHI: return "NAVAGOTCHI";
         default: return "UNKNOWN";
     }
 }
@@ -101,5 +103,6 @@ inline CardType stringToCardType(const String& str) {
     if (str == "FLAPPY_HOG") return CardType::FLAPPY_HOG;
     if (str == "QUESTION") return CardType::QUESTION;
     if (str == "PADDLE") return CardType::PADDLE;
+    if (str == "NAVAGOTCHI") return CardType::NAVAGOTCHI;
     return CardType::INSIGHT; // Default fallback
 }

@@ -140,6 +140,32 @@ public:
      */
     bool saveCardConfigs(const std::vector<CardConfig>& configs);
 
+    /**
+     * @brief Save Navagotchi pet state
+     * @param hunger Hunger level (0-100)
+     * @param happiness Happiness level (0-100)
+     * @param energy Energy level (0-100)
+     */
+    void setNavagotchiState(int hunger, int happiness, int energy);
+
+    /**
+     * @brief Get Navagotchi hunger level
+     * @return Hunger level (0-100), defaults to 50 if not set
+     */
+    int getNavagotchiHunger();
+
+    /**
+     * @brief Get Navagotchi happiness level
+     * @return Happiness level (0-100), defaults to 50 if not set
+     */
+    int getNavagotchiHappiness();
+
+    /**
+     * @brief Get Navagotchi energy level
+     * @return Energy level (0-100), defaults to 50 if not set
+     */
+    int getNavagotchiEnergy();
+
 private:
     
     /**
@@ -180,6 +206,11 @@ private:
     const char* _teamIdKey = "team_id";           ///< Key for stored team ID
     const char* _apiKeyKey = "api_key";           ///< Key for stored API key
     const char* _regionKey = "region";           ///< Key for stored region
+
+    // Storage keys for Navagotchi state
+    const char* _navagotchiHungerKey = "nav_hunger";     ///< Key for Navagotchi hunger
+    const char* _navagotchiHappyKey = "nav_happy";       ///< Key for Navagotchi happiness
+    const char* _navagotchiEnergyKey = "nav_energy";     ///< Key for Navagotchi energy
 
 
     // Storage size limits

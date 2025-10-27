@@ -1,5 +1,6 @@
 #include "ui/CardController.h"
 #include "ui/PaddleCard.h"
+#include "ui/NavagotchiCard.h"
 #include <algorithm>
 
 QueueHandle_t CardController::uiQueue = nullptr;
@@ -381,6 +382,32 @@ void CardController::initializeCardTypes() {
         return nullptr;
     };
     registerCardType(paddleDef);
+
+    // Register NAVAGOTCHI card type
+    CardDefinition navagotchiDef;
+    navagotchiDef.type = CardType::NAVAGOTCHI;
+    navagotchiDef.name = "Navagotchi";
+    navagotchiDef.allowMultiple = false;  // Only one pet at a time
+    navagotchiDef.needsConfigInput = false;
+    navagotchiDef.configInputLabel = "";
+    navagotchiDef.uiDescription = "Virtual pet with hunger, happiness, and energy. Feed, play, and rest!";
+    navagotchiDef.factory = [this](const String& configValue) -> lv_obj_t* {
+        NavagotchiCard* newCard = new NavagotchiCard(screen, configManager);
+
+        if (newCard && newCard->getCard()) {
+            // Add to unified tracking system
+            CardInstance instance{newCard, newCard->getCard()};
+            dynamicCards[CardType::NAVAGOTCHI].push_back(instance);
+
+            // Register as input handler (needs update() for game loop)
+            cardStack->registerInputHandler(newCard->getCard(), newCard);
+            return newCard->getCard();
+        }
+
+        delete newCard;
+        return nullptr;
+    };
+    registerCardType(navagotchiDef);
 }
 
 void CardController::handleCardConfigChanged() {

@@ -258,6 +258,35 @@ bool ConfigManager::saveCardConfigs(const std::vector<CardConfig>& configs) {
     if (_eventQueue != nullptr) {
         _eventQueue->publishEvent(EventType::CARD_CONFIG_CHANGED, "");
     }
-    
+
     return true;
+}
+
+void ConfigManager::setNavagotchiState(int hunger, int happiness, int energy) {
+    _preferences.begin(_namespace, false);
+    _preferences.putInt(_navagotchiHungerKey, hunger);
+    _preferences.putInt(_navagotchiHappyKey, happiness);
+    _preferences.putInt(_navagotchiEnergyKey, energy);
+    commit();
+}
+
+int ConfigManager::getNavagotchiHunger() {
+    _preferences.begin(_namespace, true);  // Read-only
+    int hunger = _preferences.getInt(_navagotchiHungerKey, 50);  // Default to 50
+    _preferences.end();
+    return hunger;
+}
+
+int ConfigManager::getNavagotchiHappiness() {
+    _preferences.begin(_namespace, true);  // Read-only
+    int happiness = _preferences.getInt(_navagotchiHappyKey, 50);  // Default to 50
+    _preferences.end();
+    return happiness;
+}
+
+int ConfigManager::getNavagotchiEnergy() {
+    _preferences.begin(_namespace, true);  // Read-only
+    int energy = _preferences.getInt(_navagotchiEnergyKey, 50);  // Default to 50
+    _preferences.end();
+    return energy;
 }
